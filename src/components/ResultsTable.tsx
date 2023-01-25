@@ -13,16 +13,16 @@ import {
   IconButton,
 } from "@mui/material";
 
-interface IProbabilityTable {
+interface IResultsTable {
   calculateWinPercentage: (probability: number, decimals: number) => number;
 }
 
-export const ProbabilityTable = (props: IProbabilityTable) => {
+export const ResultsTable = (props: IResultsTable) => {
   const [results, setResults] = useRecoilState(resultsRecoilState);
   const { calculateWinPercentage } = props;
 
   const columnHeaders: string[] = [
-    "Played",
+    "Trials",
     "Wins",
     "Losses",
     "Win probability",
@@ -33,13 +33,13 @@ export const ProbabilityTable = (props: IProbabilityTable) => {
   const clearResults = () => setResults(() => []);
 
   return (
-    <Box>
+    <Box p={4}>
       <Box>
         <IconButton onClick={clearResults}>
           <ClearIcon />
         </IconButton>
       </Box>
-      <Box maxHeight="45vh" overflow="overlay">
+      <Box maxHeight="70vh" minHeight="15vh" overflow="auto">
         <Table>
           <TableHead>
             <TableRow>

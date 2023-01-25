@@ -1,21 +1,12 @@
 import React from "react";
 import { useProbability } from "../hooks/useProbability";
-import { ProbabilityBar } from "./ProbabilityBar";
-import { ProbabilityTable } from "./ProbabilityTable";
-import { Box, Paper } from "@mui/material";
+import { ResultsBar } from "./ResultsBar";
+import { ResultsText } from "./ResultsText";
+import { calculateWinPercentage } from "../utils";
+import { Box } from "@mui/material";
 
 export const ResultsView = (props: ReturnType<typeof useProbability>) => {
   const { response } = props;
-
-  const calculateWinPercentage = React.useCallback(
-    (probability: number, decimals: number) => {
-      const percentage = probability * 100;
-      const parsed = parseFloat(percentage.toString()).toFixed(decimals);
-
-      return +parsed;
-    },
-    []
-  );
 
   const currentWinPercentage = calculateWinPercentage(
     response?.probability.winProbability || 0,
@@ -23,17 +14,9 @@ export const ResultsView = (props: ReturnType<typeof useProbability>) => {
   );
 
   return (
-    <React.Fragment>
-      <Paper variant="elevation" elevation={15}>
-        <Box p={4}>
-          <ProbabilityBar winPercentage={currentWinPercentage} />
-        </Box>
-      </Paper>
-      <Paper variant="elevation" elevation={15}>
-        <Box p={4}>
-          <ProbabilityTable calculateWinPercentage={calculateWinPercentage} />
-        </Box>
-      </Paper>
-    </React.Fragment>
+    <Box p={4}>
+      <ResultsBar winPercentage={currentWinPercentage} />
+      <ResultsText {...props} />
+    </Box>
   );
 };

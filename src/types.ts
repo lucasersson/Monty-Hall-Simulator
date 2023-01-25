@@ -24,7 +24,7 @@ export enum Decision {
   Change,
 }
 
-export type RunAlternatives = {
+export type SimAlternatives = {
   value: Decision;
   label: string;
 };

@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, LinearProgress, Stack, Typography } from "@mui/material";
 
-interface IProbabilityBar {
+interface IResultsBar {
   winPercentage: number;
 }
 
-export const ProbabilityBar = (props: IProbabilityBar) => {
+export const ResultsBar = (props: IResultsBar) => {
   const { winPercentage } = props;
 
   return (

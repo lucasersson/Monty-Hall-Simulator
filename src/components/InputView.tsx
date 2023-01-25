@@ -1,13 +1,12 @@
 import React from "react";
 import { useLimits } from "../hooks/useLimits";
 import { useProbability } from "../hooks/useProbability";
-import { Decision, IRequest, RunAlternatives } from "../types";
+import { SubmitButton } from "./SubmitButton";
+import { Decision, IRequest, SimAlternatives } from "../types";
 import {
-  Button,
   FormControl,
   FormHelperText,
   MenuItem,
-  Paper,
   Select,
   SelectChangeEvent,
   Stack,
@@ -27,8 +26,9 @@ export const InputView = ({ setSimulationResponse }: IInputView) => {
 
   const { limits } = useLimits();
   const simulationResponse = useProbability(request);
+  const { loading } = simulationResponse;
 
-  const runAlternatives: RunAlternatives[] = [
+  const runAlternatives: SimAlternatives[] = [
     {
       value: Decision.Keep,
       label: "Keep door",
@@ -62,6 +62,8 @@ export const InputView = ({ setSimulationResponse }: IInputView) => {
     if (limits !== undefined) {
       return trials < limits.min || trials > limits.max;
     }
+
+    return loading;
   };
 
   React.useEffect(() => {
@@ -71,45 +73,42 @@ export const InputView = ({ setSimulationResponse }: IInputView) => {
   }, [setSimulationResponse, simulationResponse]);
 
   return (
-    <Paper variant="elevation" elevation={15}>
-      <Stack direction="row" spacing={3} p={4}>
-        <Button
-          color="success"
+    <Stack direction="row" spacing={3} p={4}>
+      <SubmitButton
+        color="success"
+        variant="outlined"
+        onClick={handleSetRequestData}
+        disabled={handleButtonDisabled()}
+        loading={loading}
+        sx={{ height: "100%" }}
+      >
+        Start simulation
+      </SubmitButton>
+      <FormControl>
+        <TextField
+          value={trials}
+          onChange={handleTrialsChange}
           variant="outlined"
-          onClick={handleSetRequestData}
-          disabled={handleButtonDisabled()}
+          color="secondary"
+        />
+        <FormHelperText>Select the amount of simulations to run</FormHelperText>
+      </FormControl>
+      <FormControl>
+        <Select<Decision>
+          value={decision}
+          onChange={handleDecisionChange}
+          color="secondary"
         >
-          Start simulation
-        </Button>
-        <FormControl>
-          <TextField
-            value={trials}
-            onChange={handleTrialsChange}
-            // label="Amount of runs"
-            variant="outlined"
-            color="secondary"
-          />
-          <FormHelperText>
-            Select the amount of simulations to run
-          </FormHelperText>
-        </FormControl>
-        <FormControl>
-          <Select<Decision>
-            value={decision}
-            onChange={handleDecisionChange}
-            color="secondary"
-          >
-            {runAlternatives.map(({ value, label }) => (
-              <MenuItem key={value} value={value}>
-                {label}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>
-            Decide to keep the door or change the door
-          </FormHelperText>
-        </FormControl>
-      </Stack>
-    </Paper>
+          {runAlternatives.map(({ value, label }) => (
+            <MenuItem key={value} value={value}>
+              {label}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText>
+          Decide to keep the door or change the door
+        </FormHelperText>
+      </FormControl>
+    </Stack>
   );
 };
