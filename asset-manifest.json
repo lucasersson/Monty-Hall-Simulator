@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "//lucasersson.github.io/Monty-Hall-Simulator/static/css/main.90f6aea1.css",
-    "main.js": "//lucasersson.github.io/Monty-Hall-Simulator/static/js/main.f609eb5b.js",
+    "main.js": "//lucasersson.github.io/Monty-Hall-Simulator/static/js/main.26748486.js",
     "static/js/787.ec3977d9.chunk.js": "//lucasersson.github.io/Monty-Hall-Simulator/static/js/787.ec3977d9.chunk.js",
     "index.html": "//lucasersson.github.io/Monty-Hall-Simulator/index.html",
     "main.90f6aea1.css.map": "//lucasersson.github.io/Monty-Hall-Simulator/static/css/main.90f6aea1.css.map",
-    "main.f609eb5b.js.map": "//lucasersson.github.io/Monty-Hall-Simulator/static/js/main.f609eb5b.js.map",
+    "main.26748486.js.map": "//lucasersson.github.io/Monty-Hall-Simulator/static/js/main.26748486.js.map",
     "787.ec3977d9.chunk.js.map": "//lucasersson.github.io/Monty-Hall-Simulator/static/js/787.ec3977d9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.90f6aea1.css",
-    "static/js/main.f609eb5b.js"
+    "static/js/main.26748486.js"
   ]
 }
