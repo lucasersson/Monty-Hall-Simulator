@@ -15,6 +15,18 @@ builder.Services.ConfigureSwaggerGen(setup =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        var allowedOrigin = builder.Configuration.GetValue<string>("AllowedOrigins:Github");
+        if (allowedOrigin is not null)
+        {
+            policy.WithOrigins(allowedOrigin);
+        }
+    });
+});
+
 builder.Logging.AddConsole();
 
 var app = builder.Build();
@@ -26,6 +38,8 @@ if (app.Environment.IsDevelopment())
         x.AllowAnyOrigin().AllowAnyHeader()
     );
 }
+
+app.UseCors();
 
 app.UseSwagger();
 app.UseSwaggerUI();
