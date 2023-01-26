@@ -1,6 +1,7 @@
 {
   "name": "monty-hall-react",
   "version": "0.1.0",
+  "homepage": "https://https://lucasersson.github.io/Monty-Hall-Simulator/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
