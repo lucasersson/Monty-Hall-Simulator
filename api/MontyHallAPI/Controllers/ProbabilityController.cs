@@ -7,15 +7,26 @@ namespace MontyHallAPI.Controllers
     public class ProbabilityController : ControllerBase
     {
         private readonly ILogger<ProbabilityController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public ProbabilityController(ILogger<ProbabilityController> logger)
+        public ProbabilityController(ILogger<ProbabilityController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         [HttpPost(Name = "GetProbability")]
         public IResult GetProbability(UserInput userInput)
         {
+            var limits = _configuration.GetSection("Limits").Get<Limits>();
+
+            if (limits?.Min != null && limits?.Max != null)
+            {
+                if(userInput.Trials < int.Parse(limits.Min) || userInput.Trials > int.Parse(limits.Max)) {
+                    return Results.BadRequest();
+                }
+            }
+
             try
             {
                 var simulation = new Simulation { UserInput = userInput };
