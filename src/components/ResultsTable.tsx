@@ -31,7 +31,7 @@ export const ResultsTable = () => {
   return (
     <Box p={4} width="35vw">
       <Box>
-        <IconButton onClick={clearResults}>
+        <IconButton role="clearTableButton" onClick={clearResults}>
           <ClearIcon />
         </IconButton>
       </Box>
@@ -40,7 +40,9 @@ export const ResultsTable = () => {
           <TableHead>
             <TableRow>
               {columnHeaders.map((header) => (
-                <TableCell key={header}>{header}</TableCell>
+                <TableCell role="tableHeaderColumn" key={header}>
+                  {header}
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>

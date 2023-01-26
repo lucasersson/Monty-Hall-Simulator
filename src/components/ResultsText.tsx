@@ -57,6 +57,7 @@ interface IInfoBox {
 const InfoBox = ({ text, value, color = "inherit" }: IInfoBox) => {
   return (
     <Paper
+      role="infoBox"
       variant="elevation"
       elevation={24}
       sx={{ minWidth: 150, minHeight: 150 }}

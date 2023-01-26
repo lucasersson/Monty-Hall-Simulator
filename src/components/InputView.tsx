@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { ErrorSnackbar } from "./ErrorSnackbar";
 
-interface IInputView {
+export interface IInputView {
   request: IRequest | undefined;
   setRequest: React.Dispatch<React.SetStateAction<IRequest | undefined>>;
   trials: number;
@@ -79,6 +79,7 @@ export const InputView = (props: IInputView) => {
     <Stack direction="row" spacing={3} p={4}>
       <ErrorSnackbar error={error} />
       <SubmitButton
+        role="submitButton"
         color="success"
         variant="outlined"
         onClick={handleSetRequestData}
@@ -90,6 +91,7 @@ export const InputView = (props: IInputView) => {
       </SubmitButton>
       <FormControl>
         <TextField
+          role="trialsInput"
           value={trials}
           onChange={handleTrialsChange}
           variant="outlined"
@@ -99,6 +101,7 @@ export const InputView = (props: IInputView) => {
       </FormControl>
       <FormControl>
         <Select<Decision>
+          role="decisionSelect"
           value={decision}
           onChange={handleDecisionChange}
           color="secondary"

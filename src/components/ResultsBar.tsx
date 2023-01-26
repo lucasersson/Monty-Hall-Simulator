@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, LinearProgress, Stack, Typography } from "@mui/material";
 
-interface IResultsBar {
+export interface IResultsBar {
   winPercentage?: number;
 }
 
@@ -10,7 +10,13 @@ export const ResultsBar = (props: IResultsBar) => {
 
   return (
     <React.Fragment>
-      <Stack direction="row" spacing={4} display="flex" alignItems="center">
+      <Stack
+        role="resultsBar"
+        direction="row"
+        spacing={4}
+        display="flex"
+        alignItems="center"
+      >
         <Box width="90%">
           <LinearProgress
             variant="determinate"
