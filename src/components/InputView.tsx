@@ -12,6 +12,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { ErrorSnackbar } from "./ErrorSnackbar";
 
 interface IInputView {
   setSimulationResponse: React.Dispatch<
@@ -26,7 +27,7 @@ export const InputView = ({ setSimulationResponse }: IInputView) => {
 
   const { limits } = useLimits();
   const simulationResponse = useProbability(request);
-  const { loading } = simulationResponse;
+  const { loading, error } = simulationResponse;
 
   const runAlternatives: SimAlternatives[] = [
     {
@@ -74,6 +75,7 @@ export const InputView = ({ setSimulationResponse }: IInputView) => {
 
   return (
     <Stack direction="row" spacing={3} p={4}>
+      <ErrorSnackbar error={error} />
       <SubmitButton
         color="success"
         variant="outlined"

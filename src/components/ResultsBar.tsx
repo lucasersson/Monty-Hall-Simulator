@@ -2,7 +2,7 @@ import React from "react";
 import { Box, LinearProgress, Stack, Typography } from "@mui/material";
 
 interface IResultsBar {
-  winPercentage: number;
+  winPercentage?: number;
 }
 
 export const ResultsBar = (props: IResultsBar) => {
@@ -15,11 +15,11 @@ export const ResultsBar = (props: IResultsBar) => {
           <LinearProgress
             variant="determinate"
             color="secondary"
-            value={winPercentage}
+            value={winPercentage || 0}
           />
         </Box>
         <Typography sx={{ opacity: 0.8 }}>
-          {Math.round(winPercentage)}%
+          {Math.round(winPercentage || 0)}%
         </Typography>
       </Stack>
     </React.Fragment>

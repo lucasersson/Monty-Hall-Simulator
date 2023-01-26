@@ -1,7 +1,11 @@
 export const calculateWinPercentage = (
-  probability: number,
-  decimals: number
+  decimals: number,
+  probability?: number,
 ) => {
+  if (probability === undefined) {
+    return undefined
+  }
+
   const percentage = probability * 100;
   const parsed = parseFloat(percentage.toString()).toFixed(decimals);
 

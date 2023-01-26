@@ -9,8 +9,8 @@ export const ResultsView = (props: ReturnType<typeof useProbability>) => {
   const { response } = props;
 
   const currentWinPercentage = calculateWinPercentage(
-    response?.probability.winProbability || 0,
-    4
+    4,
+    response?.probability.winProbability
   );
 
   return (

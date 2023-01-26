@@ -31,7 +31,7 @@ export const ResultsText = (props: ReturnType<typeof useProbability>) => {
     },
     {
       text: "Win %",
-      value: calculateWinPercentage(probability?.winProbability || 0, 4),
+      value: calculateWinPercentage(4, probability?.winProbability),
     },
     {
       text: "Decision",
@@ -56,7 +56,11 @@ interface IInfoBox {
 
 const InfoBox = ({ text, value, color = "inherit" }: IInfoBox) => {
   return (
-    <Paper variant="elevation" elevation={24} sx={{ minWidth: 175 }}>
+    <Paper
+      variant="elevation"
+      elevation={24}
+      sx={{ minWidth: 150, minHeight: 150 }}
+    >
       <Stack direction="column" padding={4}>
         <Typography sx={{ opacity: 0.8 }}>{text}</Typography>
         <Typography fontSize={32} color={color}>

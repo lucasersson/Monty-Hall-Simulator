@@ -39,8 +39,11 @@ export const useProbability = (request?: IRequest) => {
       setResults((array) => [
         ...array, data
       ])
-    } catch (e: any) {
-      setError(e)
+    } catch {
+      setError("Unexpected error occured.")
+      setTimeout(() => {
+        setError(undefined)
+      }, 6000);
     }
 
     setLoading(false)

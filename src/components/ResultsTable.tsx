@@ -12,14 +12,10 @@ import {
   TableRow,
   IconButton,
 } from "@mui/material";
+import { calculateWinPercentage } from "../utils";
 
-interface IResultsTable {
-  calculateWinPercentage: (probability: number, decimals: number) => number;
-}
-
-export const ResultsTable = (props: IResultsTable) => {
+export const ResultsTable = () => {
   const [results, setResults] = useRecoilState(resultsRecoilState);
-  const { calculateWinPercentage } = props;
 
   const columnHeaders: string[] = [
     "Trials",
@@ -33,13 +29,13 @@ export const ResultsTable = (props: IResultsTable) => {
   const clearResults = () => setResults(() => []);
 
   return (
-    <Box p={4}>
+    <Box p={4} width="35vw">
       <Box>
         <IconButton onClick={clearResults}>
           <ClearIcon />
         </IconButton>
       </Box>
-      <Box maxHeight="70vh" minHeight="15vh" overflow="auto">
+      <Box maxHeight="80vh" minHeight="15vh" overflow="auto">
         <Table>
           <TableHead>
             <TableRow>
@@ -53,7 +49,9 @@ export const ResultsTable = (props: IResultsTable) => {
               const { trials, decision } = userInput;
               const { wins, losses, winProbability } = probability;
 
-              const winPercentage = calculateWinPercentage(winProbability, 4);
+              const winPercentage =
+                calculateWinPercentage &&
+                calculateWinPercentage(winProbability, 4);
 
               return (
                 <React.Fragment key={index}>
