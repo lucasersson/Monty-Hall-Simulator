@@ -4,8 +4,8 @@ import { resultsRecoilState } from "../recoil_state";
 import { IRequest, MontyHallDto } from "../types";
 
 /**
- * 
- * @param input 
+ *
+ * @param input
  * @yields {MontyHallDto} Request data.
  */
 export const useProbability = (request?: IRequest) => {
@@ -13,45 +13,39 @@ export const useProbability = (request?: IRequest) => {
   const [loading, setLoading] = React.useState<boolean>();
   const [error, setError] = React.useState<string>();
 
-  const setResults = useSetRecoilState(resultsRecoilState)
+  const setResults = useSetRecoilState(resultsRecoilState);
 
-  const baseUrl = process.env.REACT_APP_API_URL
+  const baseUrl = process.env.REACT_APP_API_URL;
 
-  const getProbability = React.useCallback( async() => {
-    if(request === undefined) {
+  const getProbability = React.useCallback(async () => {
+    if (request === undefined) {
       return;
     }
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await fetch(`${baseUrl}/api/probability`, {
         method: "POST",
-        headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(request),
-      })
+        body: JSON.stringify(request),
+      });
 
-      const data: MontyHallDto = await response.json()
+      const data: MontyHallDto = await response.json();
 
-      setResponse(data)
-      setResults((array) => [
-        ...array, data
-      ])
+      setResponse(data);
+      setResults((array) => [...array, data]);
     } catch {
-      setError("Unexpected error occured.")
+      setError("Unexpected error occured.");
       setTimeout(() => {
-        setError(undefined)
+        setError(undefined);
       }, 6000);
     }
 
-    setLoading(false)
-    return Promise.resolve()
-  }, [setResults, request, baseUrl])
-  
-  React.useEffect(() => {
-      getProbability();
-  }, [getProbability])
+    setLoading(false);
+    return Promise.resolve();
+  }, [setResults, request, baseUrl]);
 
-  return {response, loading, error}
+  React.useEffect(() => {
+    getProbability();
+  }, [getProbability]);
+
+  return { response, loading, error };
 };

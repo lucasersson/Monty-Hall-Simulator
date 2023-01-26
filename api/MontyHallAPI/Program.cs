@@ -1,7 +1,22 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        var allowedOrigin = builder.Configuration.GetValue<string>("AllowedOrigins:Github");
+        if (allowedOrigin is not null)
+        {
+            policy
+                .WithOrigins(allowedOrigin)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    });
+});
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -12,18 +27,6 @@ builder.Services.ConfigureSwaggerGen(setup =>
     {
         Title = "Monty Hall Simulator",
         Version= "v1",
-    });
-});
-
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        var allowedOrigin = builder.Configuration.GetValue<string>("AllowedOrigins:Github");
-        if (allowedOrigin is not null)
-        {
-            policy.WithOrigins(allowedOrigin);
-        }
     });
 });
 
