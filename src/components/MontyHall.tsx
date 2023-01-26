@@ -6,20 +6,24 @@ import { MontyHallPaper } from "../layout/MontyHallPaper";
 import { ResultsTable } from "./ResultsTable";
 import { useProbability } from "../hooks/useProbability";
 import { Box, Stack } from "@mui/material";
-import { useSetRecoilState } from "recoil";
-import { resultsRecoilState } from "../recoil_state";
+import { Decision, IRequest } from "../types";
 
 export const MontyHall = () => {
-  const [simulationResponse, setSimulationResponse] = React.useState<
-    ReturnType<typeof useProbability>
-  >({ response: undefined, loading: false, error: undefined });
-  const setResultsState = useSetRecoilState(resultsRecoilState);
+  const [request, setRequest] = React.useState<IRequest>();
+  const [trials, setTrials] = React.useState(5);
+  const [decision, setDecision] = React.useState(Decision.Keep);
 
-  React.useEffect(() => {
-    return () => {
-      setResultsState([]);
-    };
-  }, [setResultsState]);
+  const actions = {
+    request,
+    setRequest,
+    trials,
+    setTrials,
+    decision,
+    setDecision,
+  };
+
+  const simulationResponse = useProbability(request);
+  const { loading, error } = simulationResponse;
 
   return (
     <React.Fragment>
@@ -30,7 +34,7 @@ export const MontyHall = () => {
               <InfoView />
             </MontyHallPaper>
             <MontyHallPaper>
-              <InputView setSimulationResponse={setSimulationResponse} />
+              <InputView loading={loading} error={error} {...actions} />
             </MontyHallPaper>
             <MontyHallPaper>
               <ResultsView {...simulationResponse} />

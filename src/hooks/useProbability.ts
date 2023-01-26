@@ -15,16 +15,15 @@ export const useProbability = (request?: IRequest) => {
 
   const setResults = useSetRecoilState(resultsRecoilState)
 
-  const baseUrl = "https://localhost:7154/api";
+  const baseUrl = process.env.REACT_APP_API_URL
 
   const getProbability = React.useCallback( async() => {
     if(request === undefined) {
       return;
     }
-
     setLoading(true)
     try {
-      const response = await fetch(`${baseUrl}/probability`, {
+      const response = await fetch(`${baseUrl}/api/probability`, {
         method: "POST",
         headers: {
               Accept: "application/json",
@@ -47,10 +46,11 @@ export const useProbability = (request?: IRequest) => {
     }
 
     setLoading(false)
-  }, [setResults, request])
+    return Promise.resolve()
+  }, [setResults, request, baseUrl])
   
   React.useEffect(() => {
-    getProbability();
+      getProbability();
   }, [getProbability])
 
   return {response, loading, error}

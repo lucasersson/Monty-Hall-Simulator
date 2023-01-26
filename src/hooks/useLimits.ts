@@ -9,11 +9,11 @@ export const useLimits = () => {
     const [limits, setLimits] = React.useState<ILimits>()
     const [loading, setLoading] = React.useState(false)
 
-    const baseUrl = `https://localhost:7154/api`
+    const baseUrl = process.env.REACT_APP_API_URL
 
     const getLimits = React.useCallback(async() => {
         setLoading(true)
-        const response = await fetch(`${baseUrl}/limits`, {
+        const response = await fetch(`${baseUrl}/api/limits`, {
             method: "GET",
             headers: {
               Accept: "application/json",

@@ -51,7 +51,7 @@ export const ResultsTable = () => {
 
               const winPercentage =
                 calculateWinPercentage &&
-                calculateWinPercentage(winProbability, 4);
+                calculateWinPercentage(4, winProbability);
 
               return (
                 <React.Fragment key={index}>

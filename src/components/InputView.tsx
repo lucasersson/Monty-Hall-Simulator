@@ -1,6 +1,5 @@
 import React from "react";
 import { useLimits } from "../hooks/useLimits";
-import { useProbability } from "../hooks/useProbability";
 import { SubmitButton } from "./SubmitButton";
 import { Decision, IRequest, SimAlternatives } from "../types";
 import {
@@ -15,19 +14,28 @@ import {
 import { ErrorSnackbar } from "./ErrorSnackbar";
 
 interface IInputView {
-  setSimulationResponse: React.Dispatch<
-    React.SetStateAction<ReturnType<typeof useProbability>>
-  >;
+  request: IRequest | undefined;
+  setRequest: React.Dispatch<React.SetStateAction<IRequest | undefined>>;
+  trials: number;
+  setTrials: React.Dispatch<React.SetStateAction<number>>;
+  decision: Decision;
+  setDecision: React.Dispatch<React.SetStateAction<Decision>>;
+  loading?: boolean;
+  error?: string;
 }
 
-export const InputView = ({ setSimulationResponse }: IInputView) => {
-  const [request, setRequest] = React.useState<IRequest>();
-  const [trials, setTrials] = React.useState(5);
-  const [decision, setDecision] = React.useState(Decision.Keep);
+export const InputView = (props: IInputView) => {
+  const {
+    setRequest,
+    trials,
+    setTrials,
+    decision,
+    setDecision,
+    loading,
+    error,
+  } = props;
 
   const { limits } = useLimits();
-  const simulationResponse = useProbability(request);
-  const { loading, error } = simulationResponse;
 
   const runAlternatives: SimAlternatives[] = [
     {
@@ -66,12 +74,6 @@ export const InputView = ({ setSimulationResponse }: IInputView) => {
 
     return loading;
   };
-
-  React.useEffect(() => {
-    if (simulationResponse !== undefined) {
-      setSimulationResponse(simulationResponse);
-    }
-  }, [setSimulationResponse, simulationResponse]);
 
   return (
     <Stack direction="row" spacing={3} p={4}>
