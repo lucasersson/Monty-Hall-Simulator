@@ -15,6 +15,9 @@ export const useLimits = () => {
     setLoading(true);
     const response = await fetch(`${baseUrl}/api/limits`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     const data: ILimits | undefined = await response.json();
